@@ -1,19 +1,18 @@
-# Shallow-Deep Collaborative Learning for Unsupervised Visible-Infrared Person Re-Identification
+# HSLNet: A Hard-sample Focusing and Similarity-driven Label-calibration Network for Unsupervised Visible-Infrared Person Re-Identification
+HSLNet is a hard‑sample focusing and similarity‑driven label‑calibration network for unsupervised visible‑infrared person re‑identification (US‑VI‑ReID). The MPA module is designed for modality‑adaptive cross‑modal feature association and hard‑sample mining, while the CLS module performs clustering‑aware pseudo‑label refinement. The two modules work collaboratively to mitigate pseudo‑label noise and boost cross‑modal feature alignment performance.
 
-The *official* repository for [Shallow-Deep Collaborative Learning for Unsupervised Visible-Infrared Person Re-Identification](https://openaccess.thecvf.com/content/CVPR2024/papers/Yang_Shallow-Deep_Collaborative_Learning_for_Unsupervised_Visible-Infrared_Person_Re-Identification_CVPR_2024_paper.pdf). We achieve state-of-the-art performances on **unsupervised visible-infrared person re-identification** task.
+The task of this paper is unsupervised visible‑infrared person re‑identification (US‑VI‑ReID). Given visible and infrared pedestrian images, the model achieves cross‑modal pedestrian identity matching and retrieval without any manual annotations. The proposed HSLNet framework adopts TransReID ViT as the feature extraction backbone. It learns modality‑invariant discriminative features via modality‑adaptive proxy association and clustering‑aware label smoothing, alleviates pseudo‑label noise introduced by clustering, and improves the stability of cross‑modal feature alignment as well as retrieval accuracy.
 
+1. **MPA: Modality‑adaptive Proxy Association**
 
-# Contributions
+   MPA conducts modality‑aware parameter calibration, feature‑diversity‑driven proxy quality assessment, proxy‑guided hard‑sample mining, and camera‑slot distribution regularization. It computes adaptive temperature parameters for visible and infrared modalities separately, evaluates the representativeness of each proxy according to intra‑proxy feature variance, assigns quality‑aware focal weights to hard samples, and introduces camera‑level distribution constraints. It mitigates modality discrepancy and the misguidance from low‑quality proxies, alleviates cross‑camera feature bias, and suppresses global feature‑level mismatches.
 
-1. We propose a shallow-deep collaborative learning framework based on the transformer architecture. This framework facilitates the learning of robust representation, effectively countering the cross-modality discrepancy through the collaboration of shallow and deep features.
-2. We propose a collaborative neighbor learning module to formulate dependable intra-modality and cross-modality neighbor learning, enabling the model to capture modality-invariant and discriminative features. 
-3. We propose a collaborative ranking association module to explore intra-modality and cross-modality ranking consistencies, unifying the cross-modality labels and providing invaluable cross-modality supervision.
-4. Extensive experiments validate that our SDCL framework surpasses existing methods on two mainstream VI-ReID benchmarks, consistently improving the unsupervised cross-modality retrieval performance.
+2. **CLS: Clustering‑aware Label Smoothing**
 
-
+   CLS refines pseudo‑labels generated from initial clustering via multi‑factor adaptive smoothing coefficient modulation and similarity‑driven soft‑label assignment. It dynamically adjusts smoothing strength according to training epoch, sample‑to‑cluster distance and cluster size frequency. Then it assigns smoothing weights only to top‑K semantically similar clusters to construct semantic‑aware soft labels. This module further eliminates residual pseudo‑label noise, reduces error propagation caused by noisy clustering results, and stabilizes model training gradients.
 
 # Prepare Datasets
-Put SYSU-MM01 and RegDB dataset into data/sysu and data/regdb, run prepare\_sysu.py and prepare\_regdb.py to prepare the training data (convert to market1501 format).( See previous work [ADCA](https://github.com/yangbincv/ADCA) or [GUR](https://github.com/yangbincv/GUR). )
+Put SYSU-MM01 and RegDB dataset into data/sysu and data/regdb , run prepare\_sysu.py and prepare\_regdb.py to prepare the training data (convert to market1501 format).
 
 # Prepare Pre-trained model
 We adopt the self-supervised pre-trained models (ViT-B/16+ICS) from [Self-Supervised Pre-Training for Transformer-Based Person Re-Identification](https://github.com/damo-cv/TransReID-SSL?tab=readme-ov-file).
@@ -21,7 +20,7 @@ Download link:https://drive.google.com/file/d/1ZFMCBZ-lNFMeBD5K8PtJYJfYEk5D9isd/
 
 # Training
 
-We utilize 2 A100 GPUs for training.
+We utilize 2 4090 GPUs for training.
 
 **examples:**
 
@@ -29,13 +28,13 @@ SYSU-MM01:
 
 1. Train:
 ```shell
-sh train_cc_vit_sysu.sh
+sh train_sysu.sh
 ```
 
 
 2. Test:
 ```shell
-sh test_cc_vit_sysu.sh
+sh test_sysu.sh
 ```
 
 RegDB:
@@ -43,69 +42,23 @@ RegDB:
 1. Train:
 :
 ```shell
-sh train_cc_vit_regdb.sh
+sh train_regdb.sh
 ```
 
 2. Test:
 ```shell
-sh test_cc_vit_regdb.sh
+sh test_regdb.sh
 ```
 
 
-# Citation
-This code is based on previous work [ADCA](https://github.com/yangbincv/ADCA.). 
-If you find this code useful for your research, please cite our papers.
+LLCM:
 
+1. Train:
+:
+```shell
+sh train_llcm.sh
 ```
-@inproceedings{yang2024shallow,
-  title={Shallow-Deep Collaborative Learning for Unsupervised Visible-Infrared Person Re-Identification},
-  author={Yang, Bin and Chen, Jun and Ye, Mang},
-  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
-  pages={16870--16879},
-  year={2024}
-}
 
-
-@article{yang2023dual,
-  title={Dual Consistency-Constrained Learning for Unsupervised Visible-Infrared Person Re-Identification},
-  author={Yang, Bin and Chen, Jun and Chen, Cuiqun and Ye, Mang},
-  journal={IEEE Transactions on Information Forensics and Security},
-  year={2023},
-  publisher={IEEE}
-}
-
-
-@InProceedings{Yang_2023_ICCV,
-    author    = {Yang, Bin and Chen, Jun and Ye, Mang},
-    title     = {Towards Grand Unified Representation Learning for Unsupervised Visible-Infrared Person Re-Identification},
-    booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
-    month     = {October},
-    year      = {2023},
-    pages     = {11069-11079}
-}
-
-@inproceedings{adca,
-  title={Augmented Dual-Contrastive Aggregation Learning for Unsupervised Visible-Infrared Person Re-Identification},
-  author={Yang, Bin and Ye, Mang and Chen, Jun and Wu, Zesen},
-  pages = {2843–2851},
-  booktitle = {ACM MM},
-  year={2022}
-}
-
-@article{yang2023translation,
-  title={Translation, association and augmentation: Learning cross-modality re-identification from single-modality annotation},
-  author={Yang, Bin and Chen, Jun and Ma, Xianzheng and Ye, Mang},
-  journal={IEEE Transactions on Image Processing},
-  year={2023},
-  publisher={IEEE}
-}
-
-```
-# Tips
-Due to the different environments, the model may crash in the first epoch, resulting in poor results. You can increase the args.momentum parameter in the first epoch, and restore it to 0.1 in the second epoch.If you have any reproduction problems, welcome to contact us!
-
-# Contact
-yangbin_cv@whu.edu.cn; yemang@whu.edu.cn.
-
-
-
+2. Test:
+```shell
+sh test_llcm.sh
