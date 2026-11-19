@@ -1,10 +1,10 @@
 # HSLNet: A Hard-sample Focusing and Similarity-driven Label-calibration Network for Unsupervised Visible-Infrared Person Re-Identification
-## Framework Overview
-![Uploading image.png…]()
 
 HSLNet is a hard‑sample focusing and similarity‑driven label‑calibration network for unsupervised visible‑infrared person re‑identification (US‑VI‑ReID). The MPA module is designed for modality‑adaptive cross‑modal feature association and hard‑sample mining, while the CLS module performs clustering‑aware pseudo‑label refinement. The two modules work collaboratively to mitigate pseudo‑label noise and boost cross‑modal feature alignment performance.
 
 The task of this paper is unsupervised visible‑infrared person re‑identification (US‑VI‑ReID). Given visible and infrared pedestrian images, the model achieves cross‑modal pedestrian identity matching and retrieval without any manual annotations. The proposed HSLNet framework adopts TransReID ViT as the feature extraction backbone. It learns modality‑invariant discriminative features via modality‑adaptive proxy association and clustering‑aware label smoothing, alleviates pseudo‑label noise introduced by clustering, and improves the stability of cross‑modal feature alignment as well as retrieval accuracy.
+## Framework Overview
+<img width="1155" height="755" alt="1" src="https://github.com/user-attachments/assets/3b26bbbb-0e37-4cc4-ac3a-4b43fc964898" />
 
 1. **MPA: Modality‑adaptive Proxy Association**
 
