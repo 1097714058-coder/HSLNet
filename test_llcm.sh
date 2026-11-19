@@ -1,0 +1,1 @@
+CUDA_VISIBLE_DEVICES=0,1  python test_llcm.py -b 128 -a agw -d llcm_vis --iters 200 --momentum 0.1 --eps 0.6 --num-instances 8
