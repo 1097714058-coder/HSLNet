@@ -128,9 +128,9 @@ def creat_dic(pseudo_labels, proxy_labels, unique_cameras, cams):
     
     return label2proxy, proxy2label, proxy2cam, cam2proxy
 
-class ClusterContrastTrainer_HSDN(object):
+class ClusterContrastTrainer_HSLNet(object):
     def __init__(self, encoder, memory=None,matcher_rgb = None,matcher_ir = None):
-        super(ClusterContrastTrainer_HSDN, self).__init__()
+        super(ClusterContrastTrainer_HSLNet, self).__init__()
         self.encoder = encoder
         self.memory_ir = memory
         self.memory_rgb = memory
