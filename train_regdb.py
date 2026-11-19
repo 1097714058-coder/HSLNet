@@ -22,7 +22,7 @@ from clustercontrast import datasets
 from clustercontrast.model_vit_cmrefine import make_model
 from torch import einsum
 from clustercontrast.models.cm import ClusterMemory,Memory_wise_v3
-from clustercontrast.trainers import ClusterContrastTrainer_HSDN
+from clustercontrast.trainers import ClusterContrastTrainer_HSLNet
 from clustercontrast.evaluators import Evaluator, extract_features
 from clustercontrast.utils.data import IterLoader
 from clustercontrast.utils.data import transforms as T
